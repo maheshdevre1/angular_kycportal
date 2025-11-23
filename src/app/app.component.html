@@ -1,0 +1,7 @@
+<ng-container *ngIf="showNavbar"><app-navbar></app-navbar></ng-container>
+<ng-container *ngIf="showSidebar"><app-sidebar></app-sidebar></ng-container>
+<div class="overlay" *ngIf="isSidenavOpen && showSidebar" (click)="closeSidebar()"></div>
+<main class="main-content"><router-outlet></router-outlet></main>
+<app-alert></app-alert>
+<router-outlet></router-outlet>
+<ng-container *ngIf="showFooter"><app-footer></app-footer></ng-container>

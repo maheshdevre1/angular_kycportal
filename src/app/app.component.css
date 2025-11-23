@@ -1,0 +1,27 @@
+:root {
+  --sidebar-width: 280px;
+  --topbar-height: 56px;
+  --footer-height: 48px;
+}
+
+/* allow stack order so sidebar overlays main content */
+body, html, app-root {
+  height: 100%;
+  margin: 0;
+}
+
+/* main content sits full width and doesn't resize when sidebar opens */
+.main-content {
+  min-height: calc(100vh - var(--topbar-height) - var(--footer-height));
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1; /* under overlay when overlay is visible */
+}
+
+/* overlay that covers main content when sidebar is open */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.32);
+  z-index: 900; /* above main content but under sidebar if sidebar z-index higher */
+}

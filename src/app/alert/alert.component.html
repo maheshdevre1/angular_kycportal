@@ -1,0 +1,10 @@
+<!-- fixed top-right container -->
+<div class="alerts-wrapper" aria-live="polite" aria-atomic="true">
+  <div *ngFor="let a of alerts" class="alert-item" [class.visible]="a.visible">
+    <div class="alert" [ngClass]="'alert-' + a.type + ' alert-dismissible'">
+      <div class="alert-body">{{ a.message }}</div>
+      <!-- <button type="button" class="btn-close" aria-label="Close" (click)="close(a.id)"></button> -->
+       <button type="button" class="close-text" (click)="close(a.id)" aria-label="Close">&times;</button>
+    </div>
+  </div>
+</div>

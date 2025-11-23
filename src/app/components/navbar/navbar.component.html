@@ -1,0 +1,9 @@
+<header class="topbar">
+  <button class="hamburger" (click)="toggleSidenav()" aria-label="Toggle menu">☰</button>
+  <div class="title">C-KOSH</div>
+  <div class="bank_name">
+     <span>{{ bankName }}</span>
+  </div>
+  <div class="user_role"> Mahesh | {{userRole}}</div>
+  <button matButton="elevated" (click)="openDialog('0ms', '0ms')"><mat-icon>logout</mat-icon></button>
+</header>

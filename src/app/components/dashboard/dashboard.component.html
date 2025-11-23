@@ -1,0 +1,156 @@
+<div class="bootstrap-wrapper">
+  <div class="container-fluid">
+      <mat-card class="dashboard-heading-card" appearance="outlined">
+        <mat-card-header>
+           <mat-card-title>Dashbaord</mat-card-title>
+        </mat-card-header>
+    </mat-card>
+    <div class="card-row">
+      <!-- Pending record card -->
+
+      <mat-card class="pending-example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-icon>assignment</mat-icon>
+          <mat-card-title>Pending Record</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="indi-row">
+            <div>Individual Record</div>
+            <div>{{pendingCount}}</div>
+          </div>
+          <div class="legal-row">
+            <div>Legal Record</div>
+            <div>Value</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- failed record card -->
+      <mat-card class="failed-example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-icon>warning</mat-icon>
+          <mat-card-title>Failed Record</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="indi-row">
+            <div>Individual Record</div>
+            <div>{{indiFailedCount}}</div>
+          </div>
+          <div class="legal-row">
+            <div>Legal Record</div>
+            <div>{{legFailedCount}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <!-- deleted record card -->
+      <mat-card class="deleted-example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-icon>delete</mat-icon>
+          <mat-card-title>Deleted Record</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="indi-row">
+            <div>Individual Record</div>
+            <div>{{indiDeletedRecord}}</div>
+          </div>
+          <div class="legal-row">
+            <div>Legal Record</div>
+            <div>{{legDeletedRecord}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <!-- lapsed record card -->
+      <mat-card class="lapsed-example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-icon>history_toggle_off</mat-icon>
+          <mat-card-title>Lapsed Record</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="indi-row">
+            <div>Individual Record</div>
+            <div>{{indiLapsedRecord}}</div>
+          </div>
+          <div class="legal-row">
+            <div>Legal Record</div>
+            <div>{{legLapsedRecord}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- pending approval record card -->
+
+      <mat-card class="pending-approval-example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-icon>pending_actions</mat-icon>
+          <mat-card-title>Pending Approval</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="indi-row">
+            <div>Individual Record</div>
+            <div>{{indiPendingApproval}}</div>
+          </div>
+          <div class="legal-row">
+            <div>Legal Record</div>
+            <div>{{legPendingApproval}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+
+    </div>
+    <br>
+    <!-- Bank details card -->
+     <div class="bank-user-row">
+      <!-- Pending record card -->
+
+      <mat-card class="bank-details-card" appearance="outlined">
+        <mat-card-header class="center-header">
+           <mat-card-title >Bank Details</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="bank-name-row">
+            <div>Bank Name:</div>
+            <div>{{bankName}}</div>
+          </div>
+          <div class="bank-code-row">
+            <div>Bank Code:</div>
+            <div>{{bankCode}}</div>
+          </div>
+          <div class="branch-code-row">
+            <div>Branch Code:</div>
+            <div>{{branchCode}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+        <mat-card class="user-details-card" appearance="outlined">
+        <mat-card-header class="center-header">
+           <mat-card-title>User Details</mat-card-title>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+          <div class="user-name-row">
+            <div>User Name:</div>
+            <div>{{userName}}</div>
+          </div>
+          <div class="user-role-row">
+            <div>User Role:</div>
+            <div>{{roleName}}</div>
+          </div>
+          <div class="last-login-row">
+            <div>Last User Login:</div>
+            <div>{{lastLogin}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+
+  </div>
+</div>

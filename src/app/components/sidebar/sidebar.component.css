@@ -1,0 +1,315 @@
+.sidebar {
+  position: fixed;
+  overflow-y: auto; 
+  height: 82vh;
+  width: 270px;
+  transform: translateX(-100%);
+  transition: transform 220ms ease;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* small header inside sidebar */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.menu {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu a {
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 6px;
+  color: #333;
+}
+
+.menu a:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+
+/* make the nav-list scrollable while header stays fixed */
+mat-nav-list {
+  overflow: auto;
+  height: calc(100vh - 56px); /* adjust if header/footer heights differ */
+  padding-top: 8px;
+}
+
+/* thin custom scrollbar (WebKit) */
+mat-nav-list::-webkit-scrollbar {
+  width: 8px;
+}
+mat-nav-list::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 8px;
+}
+mat-nav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* expand header layout */
+.exp-header {
+  padding: 0 16px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+.exp-panel .mat-expansion-panel-body {
+  padding: 0;
+}
+
+/* remove panel backgrounds so it looks integrated */
+.mat-expansion-panel {
+  box-shadow: none;
+  background: transparent;
+}
+
+/* hovered item effect */
+.mat-list-item:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* small responsive tweak */
+@media (max-width: 720px) {
+  mat-nav-list { height: calc(100vh - 56px); }
+}
+
+/* css to fixed icon and text align issue */
+
+.sidebar-list a[mat-list-item] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px; /* spacing between icon and text */
+  height: 48px; /* optional */
+}
+
+.sidebar-list mat-icon {
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.my-text {
+  display: inline-block;
+  vertical-align: middle;
+ 
+  font-size: 12px; /* adjust as needed */
+}
+
+
+
+/* sidebar.component.css (add these) */
+
+/* make the whole item clickable and fill width */
+.my-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: rgba(0,0,0,0.87);
+  width: 100%;              /* ensure hover covers full width */
+  box-sizing: border-box;
+  border-radius: 4px;       /* subtle rounded corners on hover */
+  transition: background .18s ease, color .18s ease;
+}
+
+/* icon style */
+.my-list-item .my-icon mat-icon,
+.my-list-item mat-icon {
+  font-size: 25px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0,0.7);
+  transition: color .18s ease;
+}
+
+/* text style */
+.my-list-item .my-text {
+  display: inline-flex;
+  align-items: center;
+  line-height: 24px;
+  color: rgba(0,0,0,0.87);
+  transition: color .18s ease;
+  font-size: 17px;
+}
+
+/* HOVER state - background + icon/text color */
+.my-list-item:hover {
+  background: #c9cbcd;         /* light blue background on hover */
+  cursor: pointer;
+}
+.my-list-item:hover .my-text {
+  color: #0b66c3;              /* blue text on hover */
+}
+.my-list-item:hover mat-icon,
+.my-list-item:hover .my-icon mat-icon {
+  color: #0b66c3;              /* blue icon on hover */
+}
+
+/* ACTIVE state - use when item is selected */
+.my-list-item.active {
+  background: #dceefc;
+}
+.my-list-item.active .my-text,
+.my-list-item.active mat-icon {
+  color: #0756a6;
+}
+
+/* small responsive tweak: keep text ellipsis */
+.my-list-item .my-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
+/* sub menu css */
+
+/* chevron at right */
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;           /* make it obvious clickable */
+  user-select: none;
+}
+
+.chevron mat-icon {
+  font-size: 25px;
+  color: rgba(0,0,0,0.6);
+  transition: transform .18s ease;
+  transform-origin: center;  /* ensure rotate around center */
+  pointer-events: none;      /* let the span handle clicks */
+}
+
+/* optional rotate when open (add .open to .chevron when toggled) */
+.chevron.open mat-icon {
+  transform: rotate(90deg);
+}
+
+
+/* Sub Menu CSS */
+/* submenu-item, submenu-my-icon, submenu-my-text */
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 1px 7px;
+  text-decoration: none;
+  color: rgba(0,0,0,0.87);
+  width: 100%;              /* ensure hover covers full width */
+  box-sizing: border-box;
+  border-radius: 4px;       /* subtle rounded corners on hover */
+  transition: background .18s ease, color .18s ease;
+  
+  
+}
+
+
+.submenu-item .submenu-my-icon mat-icon,
+.submenu-item mat-icon {
+  
+  font-size: 25px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0,0.7);
+  transition: color .18s ease;
+}
+
+.submenu-item .submenu-my-text {
+  
+  display: inline-flex;
+  align-items: center;
+  line-height: 24px;
+  color: rgba(0,0,0,0.87);
+  transition: color .18s ease;
+  font-size: 17px;
+}
+
+.submenu-item:hover {
+  background: #c9cbcd;         /* light blue background on hover */
+  cursor: pointer;
+}
+.submenu-item:hover .submenu-my-text {
+  color: #0b66c3;              /* blue text on hover */
+}
+.submenu-item:hover mat-icon,
+.submenu-item:hover .submenu-my-icon mat-icon {
+  color: #0b66c3;              /* blue icon on hover */
+}
+
+/* ACTIVE state - use when item is selected */
+.submenu-item.active {
+  background: #dceefc;
+}
+.submenu-item.active .submenu-my-text,
+.submenu-item.active mat-icon {
+  color: #0756a6;
+}
+
+/* small responsive tweak: keep text ellipsis */
+.submenu-item .submenu-my-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.submenu-wrapper {
+  margin-left: 44px;
+  margin-top: 4px;
+}
+
+.icon-text-center {
+  display: flex;
+  align-items: center;     /* vertical center */
+  gap: 10px;               /* spacing between icon & text */
+  padding: 8px 16px;       /* padding for the row */
+  border-radius: 4px;
+  transition: background 0.18s ease;
+}
+
+.list-spacing {
+  column-gap: 10px;
+  margin-top: 4px;        /* reduce space above whole submenu group */
+  padding-top: 0 !important;       /* Reduce inner top padding */
+  padding-bottom: 0 !important;  
+}

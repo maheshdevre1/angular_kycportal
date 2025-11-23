@@ -1,0 +1,159 @@
+
+
+.bootstrap-wrapper,
+.container-fluid {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.batches-card {
+  width: 100%;
+  margin: 0 !important;
+  border-radius: 0 !important; /* optional: makes card edges straight */
+  box-sizing: border-box;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  padding-left: 5px;
+  padding-top: 5px;
+ 
+  
+}
+
+.dropdown-btn{
+  padding: 10px 18px;
+  background-color: white; /* Material Blue */
+  color: rgb(45, 36, 36);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+
+.batch-input{
+  padding: 10px 18px;
+  background-color: white; /* Material Blue */
+  color: rgb(45, 36, 36);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.search{
+  padding: 10px 18px;
+  background-color:rgb(69, 203, 69); /* Material Blue */
+  color: rgb(45, 36, 36);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.search-btn{
+  padding: 10px 18px;
+  background-color: white; /* Material Blue */
+  color: rgb(45, 36, 36);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+
+}
+
+.app-btn {
+  padding: 10px 18px;
+  background-color: #1976d2; /* Material Blue */
+  color: white;
+  border: black;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.app-btn:hover {
+  background-color: #1565c0; /* darker blue on hover */
+  transform: translateY(-2px);
+}
+
+.app-btn:active {
+  transform: scale(0.96);
+}
+
+
+.main-header {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-css{
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+}
+
+
+.column-css th {
+    background-color: #CDEBD9;   /* Light blue */
+    color: #000;                  /* Black text */
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.table-bordered {
+    border: 1px solid #a0acba !important;   /* Dark blue border */
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #a0acba !important;   /* Dark blue cell borders */
+}
+
+.icon-success {
+  color: green;
+  font-size: 20px;
+}
+
+.icon-error {
+  color: red;
+  font-size: 20px;
+}
+
+
+.custom-dd-btn {
+  background-color: #1e88e5;   /* nice blue */
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.custom-dd-menu {
+  border-radius: 6px;
+  min-width: 180px;
+}
+
+.custom-dd-menu .dropdown-item {
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+.custom-dd-menu .dropdown-item:hover {
+  background-color: #e3f2fd; /* light blue hover */
+}

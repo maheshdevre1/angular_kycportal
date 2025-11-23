@@ -1,0 +1,65 @@
+.alerts-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 220px;
+  max-width: 360px;
+}
+
+/* each toast container */
+.alert-item {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* when visible, slide in */
+.alert-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* rely on Bootstrap's alert classes for colors */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;  /* increased padding */
+  font-size: 1rem;        /* larger text */
+  border-radius: 10px;    /* more rounded corners */
+  min-width: 280px;       /* wider alert box */
+  max-width: 420px;       /* max width for layout */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* small text spacing if needed */
+.alert .alert-body {
+  margin-right: 0.5rem;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* optional: tweak the btn-close look if not using bootstrap js */
+.btn-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+
+.close-text {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(0,0,0,0.7);
+  padding: 0 0.25rem;
+}
+

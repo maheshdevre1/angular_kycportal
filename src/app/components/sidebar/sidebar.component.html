@@ -1,0 +1,219 @@
+<aside class="sidebar" [class.open]="isOpen" (click)="$event.stopPropagation()">
+  <mat-nav-list>
+    <!-- Dashbaord -->
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/legal')" (keydown.enter)="goTo('/legal')"
+      (keydown.space)="goTo('/legal')">
+
+      <span class="my-icon"><mat-icon>dashboard</mat-icon></span>
+      <span class="my-text">Dashboard</span>
+
+    </a>
+    <!-- Individual Entity parent item -->
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/individual')"
+      (keydown.enter)="goTo('/individual')" (keydown.space)="goTo('/individual')" [attr.aria-expanded]="submenuOpen">
+      <span class="my-icon"><mat-icon>person</mat-icon></span>
+      <span class="my-text">Individual Entity</span>
+
+      <!-- Chevron only toggles the submenu (no global sidebar toggle) -->
+      <span class="chevron" (click)="toggleSubmenu($event)" [class.open]="submenuOpen" role="button" tabindex="0"
+        title="Expand" [attr.aria-expanded]="submenuOpen" (keydown.enter)="toggleSubmenu($event)"
+        (keydown.space)="toggleSubmenu($event)">
+        <mat-icon>chevron_right</mat-icon>
+      </span>
+    </a>
+
+    <!-- Submenu items (opened independently) -->
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/pending')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>hourglass_bottom</mat-icon></span>
+          <span class="submenu-my-text">Pending New Records</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>pending_actions</mat-icon></span>
+          <span class="submenu-my-text">Pending Approval Records</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>inventory_2</mat-icon></span>
+          <span class="submenu-my-text">Ready For Batch</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>how_to_reg</mat-icon></span>
+          <span class="submenu-my-text">C-KYC Number Assigned</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>warning</mat-icon></span>
+          <span class="submenu-my-text">Failed Record</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>history_toggle_off</mat-icon></span>
+          <span class="submenu-my-text">Lapsed Record</span>
+        </div>
+      </a>
+    </div>
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>help_center</mat-icon></span>
+          <span class="submenu-my-text">Probable Match</span>
+        </div>
+      </a>
+    </div>
+    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>analytics</mat-icon></span>
+          <span class="submenu-my-text">View Reports</span>
+        </div>
+      </a>
+    </div>
+
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/individual')"
+      (keydown.enter)="goTo('/individual')" (keydown.space)="goTo('/individual')" [attr.aria-expanded]="submenuOpen">
+      <span class="my-icon"><mat-icon>business</mat-icon></span>
+      <span class="my-text">Legal Entity</span>
+
+      <!-- Chevron only toggles the submenu (no global sidebar toggle) -->
+      <span class="chevron" (click)="toggleSubmenuLegal($event)" [class.open]="submenuOpenLegal" role="button"
+        tabindex="0" title="Expand" [attr.aria-expanded]="submenuOpenLegal" (keydown.enter)="toggleSubmenuLegal($event)"
+        (keydown.space)="toggleSubmenuLegal($event)">
+        <mat-icon>chevron_right</mat-icon>
+      </span>
+    </a>
+
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/pending')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>hourglass_bottom</mat-icon></span>
+          <span class="submenu-my-text">Pending New Records</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>pending_actions</mat-icon></span>
+          <span class="submenu-my-text">Pending Approval Records</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>inventory_2</mat-icon></span>
+          <span class="submenu-my-text">Ready For Batch</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>how_to_reg</mat-icon></span>
+          <span class="submenu-my-text">C-KYC Number Assigned</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>warning</mat-icon></span>
+          <span class="submenu-my-text">Failed Record</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>history_toggle_off</mat-icon></span>
+          <span class="submenu-my-text">Lapsed Record</span>
+        </div>
+      </a>
+    </div>
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>help_center</mat-icon></span>
+          <span class="submenu-my-text">Probable Match</span>
+        </div>
+      </a>
+    </div>
+    <div class="submenu-item" *ngIf="submenuOpenLegal" [attr.aria-hidden]="!submenuOpenLegal">
+      <a (click)="goTo('/individual/approval')">
+        <div class="icon-text-center">
+          <span class="submenu-my-icon"><mat-icon>analytics</mat-icon></span>
+          <span class="submenu-my-text">View Reports</span>
+        </div>
+      </a>
+    </div>
+
+    <a class="my-list-item" role="button" tabindex="0" routerLink="/batches">
+      <span class="my-icon"><mat-icon>inventory_2</mat-icon></span>
+      <span class="my-text">Batches</span>
+    </a>
+
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/legal')" (keydown.enter)="goTo('/legal')"
+      (keydown.space)="goTo('/legal')">
+
+      <span class="my-icon"><mat-icon>person_add</mat-icon></span>
+      <span class="my-text">External Customer</span>
+
+    </a>
+
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/legal')" (keydown.enter)="goTo('/legal')"
+      (keydown.space)="goTo('/legal')">
+
+      <span class="my-icon"><mat-icon>hourglass_full</mat-icon></span>
+      <span class="my-text">Pending CKYC Number</span>
+
+    </a>
+
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/legal')" (keydown.enter)="goTo('/legal')"
+      (keydown.space)="goTo('/legal')">
+
+      <span class="my-icon"><mat-icon>folder_shared</mat-icon></span>
+      <span class="my-text">Existing CKYC</span>
+
+    </a>
+
+    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/legal')" (keydown.enter)="goTo('/legal')"
+      (keydown.space)="goTo('/legal')">
+
+      <span class="my-icon"><mat-icon>file_download</mat-icon></span>
+      <span class="my-text">Export Reports</span>
+
+    </a>
+
+
+  </mat-nav-list>
+
+</aside>

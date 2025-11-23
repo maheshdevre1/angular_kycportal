@@ -1,0 +1,66 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="login-wrapper">
+          <mat-card class="login-card">
+            <div class="container text-center">
+              <img src="../../../assets/cedge.png" alt="" />
+            </div>
+
+            <!-- <h1 class="text-center">Login Here !!</h1> -->
+
+            <!-- {{ loginData | json }} -->
+            <form>
+              <!-- bank code field -->
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Bank Code</mat-label>
+                <!--  [(ngModel)]="loginData.username"  name="username"  -->
+                <input matInput [(ngModel)]="loginData.bankCode" name="bankCode" placeholder="Enter Bank Code" required
+                  (input)="submitBankCode()">
+                <mat-hint>Enter valid bank code</mat-hint>
+              </mat-form-field>
+
+              <!-- <div *ngIf="alertMessage" class="alert-container">
+                <div class="alert alert-{{ alertType }} alert-dismissible fade show" role="alert">
+                  {{ alertMessage }}
+                  <button type="button" class="btn-close" (click)="alertMessage = null" aria-label="Close"></button>
+                </div>
+              </div> -->
+
+              <!-- username field  -->
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>User Name</mat-label>
+                <!-- [(ngModel)]="loginData.password"   name="password"-->
+                <input matInput [(ngModel)]="loginData.loginId" name="username" placeholder="Enter Username" required />
+
+              </mat-form-field>
+
+              <!-- password field -->
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Password</mat-label>
+                <!-- [(ngModel)]="loginData.password"   name="password"-->
+                <input matInput [(ngModel)]="loginData.password" name="password" type="password"
+                  placeholder="Enter Password" required />
+                </mat-form-field>
+
+
+              <div class="container text-center">
+                <button mat-raised-button color="primary" type="button" (click)="clickOnLogin()">
+                  Login
+                </button>
+                
+              </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    {{ loginData | json }}
+  </div>
+
+
+</div>

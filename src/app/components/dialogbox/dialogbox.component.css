@@ -1,0 +1,25 @@
+.dialog-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  padding-bottom: 8px;
+}
+
+.dialog-content {
+  font-size: 16px;
+  color: #555;
+  padding-bottom: 10px;
+}
+
+.dialog-actions button {
+  min-width: 90px;
+  margin-left: 10px;
+}
+
+.dialog-actions button:first-child {
+  border-color: #1976d2;
+}
+
+.dialog-actions {
+  margin-top: 15px;
+}

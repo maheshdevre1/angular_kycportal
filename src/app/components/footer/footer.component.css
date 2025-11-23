@@ -1,0 +1,15 @@
+.app-footer {
+  width: 100%;
+  background-color: #4d88a8; /* bluish shade like your UI */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 500;
+
+  /* optional: top border (light shade like your screenshot) */
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
