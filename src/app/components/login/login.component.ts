@@ -48,10 +48,13 @@ export class LoginComponent {
         const token = response.response?.token;
         const userRole = response.response?.role;
         const branchCode = response.response?.branch;
+        const branches = response.response?.branches;
         if (token) {
           localStorage.setItem('authToken', token);
           localStorage.setItem('userRole',userRole);
           localStorage.setItem('branchCode',branchCode);
+          localStorage.setItem('branches', JSON.stringify(branches));
+          console.log(branches);
          
         }
           //this.alertService.success(response.message, true, 3000);

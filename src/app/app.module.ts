@@ -37,6 +37,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
+import { ExportComponent } from './components/export/export.component';
+import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-view-reports.component';
+
+
 
 
 @NgModule({
@@ -49,7 +53,9 @@ import {MatSelectModule} from '@angular/material/select';
     NavbarComponent,
     FooterComponent,
     DialogboxComponent,
-    BatchesComponent
+    BatchesComponent,
+    ExportComponent,
+    IndiViewReportsComponent
   ],
   imports: [
     BrowserModule,

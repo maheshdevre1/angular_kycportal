@@ -23,14 +23,11 @@
             <button class="search" *ngIf="selectedOption === 'Batch Number'" (click)="searchByBatch()">
                 Search
             </button>
-
-
-            <!-- <button class="search-btn">Custom Search</button> -->
-            <input type="text" class="custom-search-input"
-                placeholder="Custom Search (searches Batch, Zip Files, Batch Type)" [(ngModel)]="customSearchText"
+            <input type="text" class="custom-search-input" placeholder="Custom Search" [(ngModel)]="customSearchText"
                 (input)="onCustomSearch()" />
-            <button class="app-btn">Stage1</button>
-            <button class="app-btn">Periodic</button>
+            <input type="file" #fileInput style="display:none;" (change)="onFileSelected($event)" />
+            <button class="app-btn" (click)="openFile(1)">Stage1</button>
+            <button class="app-btn" (click)="openFile(2)">Periodic</button>
         </div>
 
         <!-- Table -->
@@ -38,12 +35,13 @@
             <table class="table table-striped table-bordered text-center">
                 <thead class="column-css">
                     <tr>
-                        <th colspan="4" class="main-header">Batches</th>
+                        <th colspan="5" class="main-header">Batches</th>
                         <th colspan="2" class="main-header">Stage 1 Response</th>
                     </tr>
                     <tr>
                         <th>Batch</th>
                         <th>Zip Files</th>
+                        <th>Download Batch</th>
                         <th>Batch Type</th>
                         <th>Created On</th>
                         <th>Processed</th>
@@ -53,7 +51,20 @@
                 <tbody>
                     <tr *ngFor="let b of batchesList; let i = index">
                         <td>{{ b.batch }}</td>
-                        <td>{{ b.zipFiles }}</td>
+                        <td>
+                            {{ b.zipFiles }}
+
+                            <button class="edit-btn" (click)="batchesDateUpdate(b.batch)">
+                                Edit
+                            </button>
+                        </td>
+                        <td>
+                            <button>
+                                <mat-icon (click)="downloadBatch(b.batch)">
+                                    download
+                                </mat-icon>
+                            </button>
+                        </td>
                         <td>{{ b.batchType }}</td>
                         <td>{{ b.createdOn }}</td>
                         <td>
@@ -71,7 +82,7 @@
             </table>
         </div>
         <!-- Pagination -->
-        <div class="paginator" *ngIf="selectedOption === 'All Data'">
+        <div class="paginator" *ngIf="selectedOption === 'All Data' && !(customSearchText?.trim())">
             <mat-paginator [length]="totalBatchesCount" [pageSize]="pageSize" [pageIndex]="pageIndex"
                 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageChange($event)">
             </mat-paginator>

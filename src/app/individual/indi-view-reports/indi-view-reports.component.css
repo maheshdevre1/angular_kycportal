@@ -1,0 +1,274 @@
+.export-card {
+  display: flex;
+  align-items: left;
+  height: 50px;
+}
+
+.export-title {
+  margin: 0;
+  padding-top: 10px;
+  padding-left: 20px;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+
+
+/* .reports-page {
+  padding: 16px 24px 32px;
+} */
+
+/* Header */
+
+
+
+.route-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.route-label {
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+.btn-go .arrow-icon {
+  font-size: 14px;
+}
+
+/* Tabs */
+
+.reports-tabs {
+  display: flex;
+ 
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  background:#ccfff2;
+
+  border: 1px solid #00e6ac;
+ 
+}
+
+.reports-tabs-padding{
+  padding-top: 2px;
+}
+
+.button-padding{
+  padding: 5px;
+}
+
+.reports-tabs .button-padding {
+  display: flex;
+  gap: 15px;  /* ✅ This adds spacing between buttons */
+}
+
+.tab {
+  border: 1px solid black;
+  border-radius: var(--radius-pill);
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ccffcc;
+  color: var(--text-muted);
+  transition: 0.15s ease;
+  border-radius: 30px;
+}
+
+.tab:hover {
+  background: #dde8f8;
+}
+
+.tab.active {
+  background-color: #00e600;
+  color: black;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid black;
+}
+
+.buttons{
+    height: 20px;
+}
+
+.selected-item {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.12); /* emulate mat-stroked */
+  border-radius: 4px;
+  padding: 4px 12px;
+  background: white;
+  cursor: pointer;
+  height: 40px;
+  box-sizing: border-box;
+  
+}
+
+.button-width { width: 230px; text-align: left; }
+.selected-item .mat-select-trigger { line-height: 32px; } /* vertical align */
+
+
+
+
+
+
+
+.button-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
+
+.selected-item,
+.custom-search {
+  background: white;
+  border: 1.6px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: 0.2s ease;
+}
+
+.selected-item:hover,
+.custom-search:hover {
+  border-color: #999;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+}
+
+.search-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #4fbfa5; /* ✅ peacock / light green tone */
+  background-color: rgb(62, 209, 62) !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(66, 214, 83);
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(79,191,165,0.25);
+  transition: 0.3s ease;
+}
+
+.search-button:hover {
+  background: #3aa58c;
+  box-shadow: 0 4px 10px rgba(79,191,165,0.35);
+  transform: translateY(-1px);
+}
+
+/* ✅ Search icon inside button */
+.search-button::before {
+  content: "🔍";  /* You can replace with a mat-icon if you're using Angular Material */
+  font-size: 17px;
+}
+
+/* ✅ Angular Material Checkbox Dropdown (mat-select customization) */
+.mat-mdc-select-panel {
+  border-radius: 10px !important;
+  padding: 6px !important;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12) !important;
+}
+
+.mat-mdc-option {
+  padding: 10px 14px !important;
+  font-size: 14.5px;
+  border-radius: 6px;
+  margin: 2px 5px;
+}
+
+.mat-mdc-option:hover {
+  background: rgba(79,191,165,0.12) !important;
+}
+
+.mat-pseudo-checkbox {
+  border-color: #4fbfa5 !important;
+}
+
+.mat-mdc-option.mat-selected {
+  background: rgba(79,191,165,0.2) !important;
+  color: #222 !important;
+  font-weight: 600;
+}
+
+/* ✅ Add search symbol using mat-icon instead */
+.search-button mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  color: white;
+}
+
+.button-card{
+  padding: 5px;
+}
+
+.table-css{
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  
+}
+
+
+.column-css th {
+    background-color: #CDEBD9;   /* Light blue */
+    color: #000;                  /* Black text */
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.table-bordered {
+    border: 1px solid #a0acba !important;   /* Dark blue border */
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #a0acba !important;   /* Dark blue cell borders */
+}
+
+
+.paginator{
+  padding-top: 10px;
+  border: 1px solid #f7f9fc !important; 
+}
+
+.custom-search-input{
+  padding-left: 5px;
+}
+

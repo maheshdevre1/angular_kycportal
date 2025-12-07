@@ -157,3 +157,19 @@
 .custom-dd-menu .dropdown-item:hover {
   background-color: #e3f2fd; /* light blue hover */
 }
+
+.edit-btn {
+  margin-left: 8px;
+  padding: 3px 10px;
+  font-size: 12px;
+  border: 1px solid #1976d2;
+  background: white;
+  color: #1976d2;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #1976d2;
+  color: #fff;
+}

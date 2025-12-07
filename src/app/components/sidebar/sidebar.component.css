@@ -15,6 +15,11 @@
   box-sizing: border-box;
 }
 
+
+.no-underline {
+  text-decoration: none;
+}
+
 .sidebar.open {
   transform: translateX(0);
 }

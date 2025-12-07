@@ -1,0 +1,93 @@
+<div class="export-heading">
+  <mat-card class="export-card">
+    <h3 class="export-title">EXPORT</h3>
+
+  </mat-card>
+</div>
+<div class="content-card">
+  <mat-card class="mat-content-card">
+    <div class="content-card-header">
+      <!-- <mat-card class="mat-content-card-header"> -->
+      <h3>! You are only allowed to download one ZIP file per day,
+        regardness of the selected option.</h3>
+      <!-- </mat-card> -->
+
+    </div>
+    
+    <div class="individual-header" role="button" tabindex="0" (click)="toggle('individual')"
+      (keydown.enter)="toggle('individual')" (keydown.space)="$event.preventDefault(); toggle('individual')">
+      <span class="arrow" [class.open]="isOpen('individual')">&#9662;</span>
+      Individual Report
+    </div>
+    <div class="panel-content" *ngIf="isOpen('individual')">
+      <div class="report-row">
+        <button (click)="getExportReport('1')">Pending CIF</button>
+        <button (click)="getExportReport('2')">Failed CIF</button>
+        <button (click)="getExportReport('3')">Deleted CIF</button>
+        <button (click)="getExportReport('4')">Restored CIF</button>
+        <button (click)="getExportReport('5')">Branch </button>
+        <button (click)="getExportReport('6')">Progressive</button>
+        <button (click)="getExportReport('7')">CKYC Assign</button>
+        <button (click)="getExportReport('8')">Pending Approval</button>
+        <button (click)="getExportReport('9')">Ready For Batch</button>
+        <button (click)="getExportReport('10')">Probable Match</button>
+        <button (click)="getExportReport('11')">Lapsed Records</button>
+        <button (click)="getExportReport('12')">Pending CKYC</button>
+      </div>
+    </div>
+
+    <!-- <div class="individual-header">
+      <span class="arrow">&#9662;</span>
+      Legal Report
+    </div> -->
+
+    <div class="individual-header" role="button" tabindex="0" (click)="toggle('legal')"
+      (keydown.enter)="toggle('legal')" (keydown.space)="$event.preventDefault(); toggle('legal')">
+      <span class="arrow" [class.open]="isOpen('legal')">&#9662;</span>
+      Legal Report
+    </div>
+
+    <div class="panel-content" *ngIf="isOpen('legal')">
+      <div class="report-row">
+        <button (click)="getExportReport('13')">Pending CIF</button>
+        <button (click)="getExportReport('14')">Failed CIF</button>
+        <button (click)="getExportReport('15')">Deleted CIF</button>
+        <button (click)="getExportReport('16')">Restored CIF</button>
+        <button (click)="getExportReport('17')">Branch </button>
+        <button (click)="getExportReport('18')">Progressive</button>
+        <button (click)="getExportReport('19')">CKYC Assign</button>
+        <button (click)="getExportReport('20')">Pending Approval</button>
+        <button (click)="getExportReport('21')">Ready For Batch</button>
+        <button (click)="getExportReport('22')">Probable Match</button>
+        <button (click)="getExportReport('23')">Lapsed Records</button>
+        <button (click)="getExportReport('25')">Pending CKYC</button>
+      </div>
+    </div>
+
+    <!-- <div class="individual-header">
+      <span class="arrow">&#9662;</span>
+      Administration
+    </div> -->
+    <div class="individual-header" role="button" tabindex="0" (click)="toggle('admin')"
+      (keydown.enter)="toggle('admin')" (keydown.space)="$event.preventDefault(); toggle('admin')">
+      <span class="arrow" [class.open]="isOpen('admin')">&#9662;</span>
+      Administration
+    </div>
+    <div class="panel-content" *ngIf="isOpen('admin')">
+      <div class="report-row">
+        <button (click)="getExportReport('25')">User List</button>
+
+      </div>
+    </div>
+
+
+  </mat-card>
+
+</div>
+
+
+<div class="bootstrap-wrapper">
+  <div class="container-fluid">
+
+  </div>
+</div>

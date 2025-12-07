@@ -84,14 +84,20 @@
         </div>
       </a>
     </div>
-    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
-      <a (click)="goTo('/individual/approval')">
+
+     <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a role="button"   routerLink="/indi_view_report" class="no-underline">
         <div class="icon-text-center">
           <span class="submenu-my-icon"><mat-icon>analytics</mat-icon></span>
           <span class="submenu-my-text">View Reports</span>
         </div>
       </a>
     </div>
+
+
+
+  
+
 
     <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/individual')"
       (keydown.enter)="goTo('/individual')" (keydown.space)="goTo('/individual')" [attr.aria-expanded]="submenuOpen">
@@ -205,12 +211,11 @@
 
     </a>
 
-    <a class="my-list-item" role="button" tabindex="0" (click)="goTo('/legal')" (keydown.enter)="goTo('/legal')"
-      (keydown.space)="goTo('/legal')">
+    
 
+     <a class="my-list-item" role="button" tabindex="0" routerLink="/export">
       <span class="my-icon"><mat-icon>file_download</mat-icon></span>
       <span class="my-text">Export Reports</span>
-
     </a>
 
 

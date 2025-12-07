@@ -18,3 +18,29 @@ export interface BatchesRequest {
     batchId: string;
 }
 
+export interface DownlodBatchRequest {
+    token: string;
+    batchId: string;
+}
+
+
+export interface ExportRequest {
+    token: string;
+    type: string;
+}
+
+export interface ViewReportRequest{
+  token: string;
+  branchInfo: BranchInfo[]; 
+  type: string,
+  start: number,
+  length: number
+}
+
+export interface BranchInfo {
+  branchId: string;
+  branchName: string;
+}
+
+
+

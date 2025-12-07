@@ -1,11 +1,12 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { BatchesService } from 'src/app/services/batches.service';
-import { BatchesRequest } from 'src/app/services/model';
+import { BatchesRequest, DownlodBatchRequest } from 'src/app/services/model';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { BatchesRequest } from 'src/app/services/model';
 export class BatchesComponent implements OnInit {
 
   batchesData = {} as BatchesRequest;
+  downloadbatchRequest = {} as DownlodBatchRequest;
   alertMessage: string | null = null;
   alertType: string = '';
   batchesList: any[] = [];
@@ -29,8 +31,16 @@ export class BatchesComponent implements OnInit {
   customSearchText: string = '';
   private customSearchDebounceTimer: any = null;
   private CUSTOM_SEARCH_DEBOUNCE_MS = 250;
+  //selectedFile?: File;
+  uploadProgress = 0;
+  uploading = false;
+  serverResponse: any = null;
+  uploadType: string = '1';   // default
+selectedFile: File | undefined;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
 
   constructor(
     private alertService: AlertService,
@@ -42,17 +52,56 @@ export class BatchesComponent implements OnInit {
     this.loadAllData();
   }
 
-  // Code for custom search started
-   private handleBatchesResponse(response: any, pageIndex: number, pageSize: number) {
-    this.batchesList = response.response?.data || [];
-    this.originalBatchesList = JSON.parse(JSON.stringify(this.batchesList));
-    this.totalBatchesCount = response.response?.count || 0;
-    this.pageIndex = pageIndex;
-    this.pageSize = pageSize;
+  //started - code for file upload
+  openFile(type: number) {
+    this.uploadType = String(type);
+    this.fileInput.nativeElement.click();
+    //this.onFileSelected();
+  }
+  onFileSelected(event: Event) {
+    debugger
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) {
+      this.selectedFile = undefined;
+      return;
+    }
+    this.selectedFile = input.files[0];
+    this.serverResponse = null;
+    this.uploadSelected();
+  }
+
+  uploadSelected() {
+    debugger
+    if (!this.selectedFile) {
+      alert('Please select a file first.');
+      return;
+    }
+    const token = localStorage.getItem('authToken') || '';
+    //const type = '1'; // or whatever type you want to send
+    const type = this.uploadType; 
+    this.uploading = true;
+    this.uploadProgress = 0;
+    this.batchesService.uploadResponseStage1(this.selectedFile, token, type).subscribe(
+      (response: any) => {
+        console.log("Dashboard Response ==>", response);
+        if (response.errorCode === 0) {
+          this.alertService.success(response.message, true, 3000);
+        } else if (response.errorCode === 1) {
+          this.alertService.danger(response.message, true, 3000);
+        }
+      },
+      (error) => {
+        this.alertService.danger('Failed to call API', true, 3000);
+      }
+    );
   }
 
 
+  // Code for custom search started
   onCustomSearch() {
+    //debugger
+    console.log('onCustomSearch fired, customSearchText=', this.customSearchText);
+
     if (this.customSearchDebounceTimer) {
       clearTimeout(this.customSearchDebounceTimer);
     }
@@ -64,6 +113,7 @@ export class BatchesComponent implements OnInit {
 
   applyCustomSearch() {
     const q = (this.customSearchText || '').trim().toLowerCase();
+    console.log('Normalized query q =', q);
     if (!q) {
       this.batchesList = JSON.parse(JSON.stringify(this.originalBatchesList));
       this.resetPaginatorIfNeeded();
@@ -71,37 +121,30 @@ export class BatchesComponent implements OnInit {
     }
     const searchFields = ['batch', 'zipFiles', 'batchType', 'createdOn'];
     const matches: any[] = [];
-    const nonMatches: any[] = [];
-
+    if (!this.originalBatchesList || this.originalBatchesList.length === 0) {
+      console.warn('No data available to search (originalBatchesList is empty).');
+      return;
+    }
     for (const row of this.originalBatchesList) {
-      let isMatch = false;
-      for (const field of searchFields) {
-        const val = (row[field] ?? '').toString().toLowerCase();
-        if (val.includes(q)) {
-          isMatch = true;
-          break;
-        }
+      const rowText = JSON.stringify(row).toLowerCase();
+      if (rowText.includes(q)) {
+        matches.push(row);
       }
-      if (isMatch) matches.push(row);
-      else nonMatches.push(row);
     }
 
-    // Put matches on top, non-matches below
-    this.batchesList = [...matches, ...nonMatches];
-
-    // If you want exact ordering inside matches (e.g., sort by best match),
-    // you can apply further sort logic here.
-
-    // Reset paginator to first page when showing filtered results (if paginator visible)
+    if (matches.length > 0) {
+      this.batchesList = JSON.parse(JSON.stringify(matches));
+      console.log('Matches found:', matches.length);
+    } else {
+      this.batchesList = JSON.parse(JSON.stringify(this.originalBatchesList || []));
+      console.log('No matches -> restored full list');
+    }
     this.resetPaginatorIfNeeded();
   }
 
-
-  // Utility: if paginator is visible (All Data), set to first page so matches are visible
   private resetPaginatorIfNeeded() {
-    // only reset when showing All Data (your condition for showing paginator)
+    //debugger
     if (this.selectedOption === 'All Data' && this.paginator) {
-      // set component pageIndex to zero and visually reset paginator
       this.pageIndex = 0;
       try { this.paginator.firstPage(); } catch (e) { /* safe fallback */ }
     }
@@ -157,6 +200,7 @@ export class BatchesComponent implements OnInit {
         console.log('Batches Response', response);
         if (response.errorCode === 0) {
           this.batchesList = response.response?.data || [];
+          this.originalBatchesList = response.response?.data || [];
           this.totalBatchesCount = response.response?.count || 0;
           this.pageIndex = pageIndex;
           this.pageSize = pageSize;
@@ -170,6 +214,85 @@ export class BatchesComponent implements OnInit {
       },
       (error) => {
         this.alertService.danger('Failed to call API', true, 3000);
+      }
+    );
+  }
+
+  //download Batch
+  downloadBatch(batchId: string) {
+    //debugger
+    const token = localStorage.getItem('authToken');
+
+    const requestBody = {
+      token: token || '',
+      batchId: batchId
+    };
+
+    this.batchesService.downloadBatch(requestBody).subscribe(
+      (response: any) => {
+        console.log("Download Batch Response:", response);
+
+        if (response.errorCode === 0) {
+          const headers = response.response.headers;
+          const body = response.response.body; // Base64 ZIP string
+          // 1. Extract filename from Content-Disposition
+          const contentDisposition = headers["Content-Disposition"][0];
+          const filename = contentDisposition.split("filename=")[1].replace(/"/g, "");
+          // 2. Decode Base64 → binary data
+          const byteCharacters = atob(body);
+          const byteNumbers = new Array(byteCharacters.length)
+            .fill(0)
+            .map((_, i) => byteCharacters.charCodeAt(i));
+          const byteArray = new Uint8Array(byteNumbers);
+          // 3. Convert to Blob
+          const blob = new Blob([byteArray], { type: "application/zip" });
+          // 4. Trigger download
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = filename;
+          link.click();
+          window.URL.revokeObjectURL(link.href);
+        }
+        else if (response.errorCode === 4) {
+          this.alertService.danger(response.message, true, 3000);
+        } else if (response.errorCode === 1) {
+          this.alertService.danger(response.message, true, 3000);
+        }
+
+      },
+      () => {
+        this.alertService.danger("API Error - Unable to download", true, 3000);
+      }
+    );
+  }
+
+  //batch date update
+    batchesDateUpdate(batchId: string) {
+    debugger
+    const token = localStorage.getItem('authToken');
+
+    const requestBody = {
+      token: token || '',
+      batchId: batchId
+    };
+
+    this.batchesService.batchesDateUpdate(requestBody).subscribe(
+      (response: any) => {
+        console.log("Download Batch Response:", response);
+
+        if (response.errorCode === 0) {
+          this.alertService.success(response.message, true, 3000);
+        }
+        else if (response.errorCode === 1) {
+          this.alertService.danger(response.message, true, 3000);
+        } else if (response.errorCode === 2) {
+          this.alertService.danger(response.message, true, 3000);
+          this.router.navigate(['/login']);
+        }
+
+      },
+      () => {
+        this.alertService.danger("Failed to call API", true, 3000);
       }
     );
   }
