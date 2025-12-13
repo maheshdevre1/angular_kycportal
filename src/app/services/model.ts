@@ -42,5 +42,30 @@ export interface BranchInfo {
   branchName: string;
 }
 
+export interface ReportTab {
+  label: string;
+  type: string;
+}
+
+export interface LapsedRecordRequest {
+  searchId: string;
+  rowId: string;
+  type : string;
+  token : string;
+  start : number;
+  length : number;
+}
+
+
+export interface ReprocessLapsedRequest {
+  token: string;
+  listOfCustomerId: {
+    rowId: number;
+    customerID: string;
+  }[];
+}
+
+
+
 
 

@@ -1,3 +1,10 @@
+
+
+<div class="custom-loader-overlay" *ngIf="isLoading">
+  <div class="custom-spinner"></div>
+  <div class="loading-text"></div>
+</div>
+
 <div class="export-heading">
   <mat-card class="export-card">
     <h3 class="export-title">REPORTS</h3>
@@ -5,19 +12,17 @@
   </mat-card>
 </div>
 
-
-
-
-
-
-
-
-
 <div class="reports-tabs-padding">
   <nav class="reports-tabs">
     <div class="button-padding">
-      <button *ngFor="let tab of tabs" class="tab" [class.active]="tab.type === activeType" (click)="selectTab(tab)"
-        type="button" [attr.aria-pressed]="tab.type === activeType" title="{{ tab.label }} (type: {{ tab.type }})">
+      <button *ngFor="let tab of tabs" 
+       class="tab" 
+       [class.active]="tab.type === activeType" (click)="selectTab(tab)"
+        type="button" 
+        [attr.aria-pressed]="tab.type === activeType" 
+        title="{{ tab.label }} (type: {{ tab.type }})"
+        [disabled]="isLoading" 
+        >
         {{ tab.label }}
       </button>
     </div>
@@ -30,16 +35,16 @@
   <div class="button-row">
 
     <!-- <mat-form-field appearance="outline"> -->
-    <div mat-stroked-button class="selected-item button-width">
+    <div *ngIf="userRole !== '40' && userRole !== '50'" mat-stroked-button class="selected-item button-width">
       <mat-select #branchSelect multiple (selectionChange)="onSelectChange($event)"
         [panelClass]="'branch-select-panel'">
 
- 
 
-     <input type="text" class="custom-search-input" placeholder="Search Branch" [(ngModel)]="customSearchText"
-                (input)="onCustomSearch()" />
 
-      
+        <input type="text" class="custom-search-input" placeholder="Search Branch" [(ngModel)]="customSearchText"
+          (input)="onCustomSearch()" />
+
+
         <mat-option (click)="$event.stopPropagation(); toggleAllSelection()">
           {{ isAllSelected() ? 'Deselect All Branches' : 'Select All Branches' }}
         </mat-option>
@@ -56,15 +61,16 @@
     </div>
 
 
-    <button mat-raised-button class="search-button" (click)="onSearchClick()">
+    <button mat-raised-button class="search-button" *ngIf="userRole !== '40' && userRole !== '50'" (click)="onSearchClick()">
       Search
     </button>
 
-    <!-- Custom Search Button (WHITE) -->
-    <button mat-stroked-button class="custom-search">
-      <mat-icon class="text-gray-600">tune</mat-icon>
-      Custom Search
-    </button>
+
+
+    <input type="text" class="custom-search-input" placeholder="Custom Search" [(ngModel)]="reportCustomSearchText"
+      (input)="reportCustomSearch()" />
+
+
 
   </div>
 
@@ -228,13 +234,13 @@
 </mat-card>
 
 <div class="paginator-padding">
-<div  class="paginator" *ngIf="totalCount >= pageSize">
-  <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageIndex]="pageIndex"
-    [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageChange($event)">
-  </mat-paginator>
-  <br>
-  <br>
-  <br>
-  <br>
-</div>
+  <div class="paginator" *ngIf="totalCount >= pageSize">
+    <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" (page)="onPageChange($event)">
+    </mat-paginator>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
 </div>

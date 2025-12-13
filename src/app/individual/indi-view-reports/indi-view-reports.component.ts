@@ -5,7 +5,8 @@ import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ExportService } from 'src/app/services/export.service';
-import { BranchInfo, ViewReportRequest } from 'src/app/services/model';
+import { BranchInfo, ReportTab, ViewReportRequest } from 'src/app/services/model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-indi-view-reports',
@@ -20,21 +21,24 @@ export class IndiViewReportsComponent {
   branchList: { code: string; name: string }[] = [];
   selectedBranches: { code: string; name: string }[] = [];
   tableData: any[] = [];
+  originalTableData: any[] = [];
   totalCount = 0;
-  activeType: string = 'A'; 
+  activeType: string = 'A';
   pageIndex = 0;
   pageSize = 5;
+  userRole: string = '';
+  isLoading = false;
   searchText: string = '';
   filteredBranchList: any[] = [];
   customSearchText: string = '';
+  reportCustomSearchText: string = '';
   private customSearchDebounceTimer: any = null;
   private CUSTOM_SEARCH_DEBOUNCE_MS = 250;
-
   // track if a tab was clicked (auto-select + auto-fetch) at least once
   private tabAutoFetched: Record<string, boolean> = {};
 
-  tabs: { label: string; type: string }[] = [
-    { label: 'Branch Summary', type: 'A' },   
+   tabs: ReportTab[] = [
+    { label: 'Branch Summary', type: 'A' },
     { label: 'Progressive Summary', type: 'C' },
     { label: 'Deleted CIF', type: 'E' },
     { label: 'Restored CIF', type: 'G' },
@@ -53,38 +57,43 @@ export class IndiViewReportsComponent {
 
   ngOnInit() {
     //debugger
+    this.userRole = localStorage.getItem('userRole') || '';
     this.activeType = 'A';
+    // initialize tabAutoFetched flags
+    this.tabs.forEach(t => (this.tabAutoFetched[t.type] = false));
     this.filteredBranchList = this.branchList;
     const branches = JSON.parse(localStorage.getItem("branches") || "[]");
     this.branchList = branches;
     this.selectedBranches = branches.slice();
     this.selectedCount = this.selectedBranches.length;
     this.tabs.forEach(t => (this.tabAutoFetched[t.type] = false));
+    
     setTimeout(() => {
+      // call selectTab but avoid re-running initial logic twice
       this.selectTab(this.tabs[0]);
-    });
+    }, 0);
   }
 
 
-//filter branches
-filterBranches() {
-  debugger
-  const text = this.searchText.toLowerCase();
+  //filter branches
+  filterBranches() {
+    debugger
+    const text = this.searchText.toLowerCase();
 
-  this.filteredBranchList = this.branchList.filter(b =>
-    b.name.toLowerCase().includes(text) ||
-    b.code.toLowerCase().includes(text)
-  );
-}
+    this.filteredBranchList = this.branchList.filter(b =>
+      b.name.toLowerCase().includes(text) ||
+      b.code.toLowerCase().includes(text)
+    );
+  }
 
   // Called when user clicks Search button (resets to first page)
-onSearchClick() {
-  this.pageIndex = 0;        // reset to first page
-  this.viewreport(this.pageIndex, this.pageSize);
-}
+  onSearchClick() {
+    this.pageIndex = 0;        // reset to first page
+    this.viewreport(this.pageIndex, this.pageSize);
+  }
 
   // called when a tab is clicked
-  selectTab(tab: { label: string; type: string }) {
+  selectTab(tab: ReportTab) {
     this.activeType = tab.type;
     // if this tab wasn't auto-fetched before, auto-select all branches and call viewreport()
     if (!this.tabAutoFetched[tab.type]) {
@@ -95,7 +104,7 @@ onSearchClick() {
       // call viewreport immediately with auto-selected branches
       this.viewreport(this.pageIndex, this.pageSize);
     }
-}
+  }
 
   // select all branches programmatically and update local selection state
   selectAllBranches() {
@@ -137,7 +146,7 @@ onSearchClick() {
     this.selectedCount = this.selectedBranches.length;
   }
 
- // selectionChange handler (user manual selection)
+  // selectionChange handler (user manual selection)
   onSelectChange(event: any) {
     this.selectedBranches = event?.value ?? [];
     this.selectedCount = this.selectedBranches.length;
@@ -157,6 +166,7 @@ onSearchClick() {
   viewreport(pageIndex: number, pageSize: number) {
     //debugger
     const token = localStorage.getItem('authToken') || '';
+    
 
     this.viewReportRequest = {
       token,
@@ -168,11 +178,15 @@ onSearchClick() {
 
     console.log('View Report Request', this.viewReportRequest);
 
-    this.exportService.viewReport(this.viewReportRequest).subscribe(
+    this.isLoading = true;
+
+    this.exportService.viewReport(this.viewReportRequest)
+    .pipe(finalize(() => { this.isLoading = false; }))
+    .subscribe(
       (response: any) => {
         console.log('View Report Response', response);
         if (response.errorCode === 0) {
-           this.totalCount = response.response?.totalCount ?? 0;
+          this.totalCount = response.response?.totalCount ?? 0;
           this.tableData = response.response?.data ?? [];
         } else if (response.errorCode === 1) {
           this.tableData = [];  // ✅ Clear table data
@@ -190,15 +204,15 @@ onSearchClick() {
   }
 
 
-   // paginator change event
-onPageChange(event: PageEvent) {
-  this.pageIndex = event.pageIndex;
-  this.pageSize = event.pageSize;
-  this.viewreport(this.pageIndex, this.pageSize);
-}
+  // paginator change event
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.viewreport(this.pageIndex, this.pageSize);
+  }
 
 
-// Code for custom search started
+  // Code for custom search started
   onCustomSearch() {
     debugger
     console.log('onCustomSearch fired, customSearchText=', this.customSearchText);
@@ -218,7 +232,7 @@ onPageChange(event: PageEvent) {
     console.log('Normalized query q =', q);
     if (!q) {
       this.branchList = JSON.parse(JSON.stringify(this.branchList));
-     // this.resetPaginatorIfNeeded();
+
       return;
     }
     const searchFields = ['code', 'name'];
@@ -241,13 +255,63 @@ onPageChange(event: PageEvent) {
       this.branchList = JSON.parse(JSON.stringify(this.branchList || []));
       console.log('No matches -> restored full list');
     }
-   // this.resetPaginatorIfNeeded();
   }
 
-  // Code for custom search ended
 
-  
-  
+
+
+
+  reportCustomSearch() {
+    //debugger
+    console.log('onCustomSearch fired, customSearchText=', this.reportCustomSearchText);
+
+    if (this.customSearchDebounceTimer) {
+      clearTimeout(this.customSearchDebounceTimer);
+    }
+
+    this.customSearchDebounceTimer = setTimeout(() => {
+      this.applyReportCustomSearch();
+    }, this.CUSTOM_SEARCH_DEBOUNCE_MS);
+
+  }
+
+
+
+
+  applyReportCustomSearch() {
+    const q = (this.reportCustomSearchText || '').trim().toLowerCase();
+    console.log('Normalized query q =', q);
+    if (!q) {
+      this.tableData = JSON.parse(JSON.stringify(this.tableData));
+      return;
+    }
+
+
+
+    const matches: any[] = [];
+    if (!this.tableData || this.tableData.length === 0) {
+      console.warn('No data available to search (originalBatchesList is empty).');
+      return;
+    }
+    for (const row of this.tableData) {
+      const rowText = JSON.stringify(row).toLowerCase();
+      if (rowText.includes(q)) {
+        matches.push(row);
+      }
+    }
+
+    if (matches.length > 0) {
+      this.tableData = JSON.parse(JSON.stringify(matches));
+      console.log('Matches found:', matches.length);
+    } else {
+      this.tableData = JSON.parse(JSON.stringify(this.tableData || []));
+      console.log('No matches -> restored full list');
+    }
+
+  }
+
+
+
 
 
 }

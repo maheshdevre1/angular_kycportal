@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BatchesComponent } from './components/batches/batches.component';
 import { ExportComponent } from './components/export/export.component';
 import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-view-reports.component';
+import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'batches', component: BatchesComponent },
   { path: 'export', component: ExportComponent },
-  {path : 'indi_view_report', component: IndiViewReportsComponent}
+  {path : 'indi_view_report', component: IndiViewReportsComponent},
+  {path : 'indi_lapsed', component: IndiLapsedComponent}
 ];
 
 @NgModule({

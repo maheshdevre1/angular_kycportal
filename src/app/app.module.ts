@@ -39,6 +39,7 @@ import { CommonModule } from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
 import { ExportComponent } from './components/export/export.component';
 import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-view-reports.component';
+import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.component';
 
 
 
@@ -55,7 +56,8 @@ import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-vi
     DialogboxComponent,
     BatchesComponent,
     ExportComponent,
-    IndiViewReportsComponent
+    IndiViewReportsComponent,
+    IndiLapsedComponent
   ],
   imports: [
     BrowserModule,

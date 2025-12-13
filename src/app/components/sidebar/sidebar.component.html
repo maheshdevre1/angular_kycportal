@@ -68,14 +68,16 @@
       </a>
     </div>
 
-    <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
-      <a (click)="goTo('/individual/approval')">
+   <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
+      <a role="button"   routerLink="/indi_lapsed" class="no-underline">
         <div class="icon-text-center">
           <span class="submenu-my-icon"><mat-icon>history_toggle_off</mat-icon></span>
           <span class="submenu-my-text">Lapsed Record</span>
         </div>
       </a>
     </div>
+
+
     <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
       <a (click)="goTo('/individual/approval')">
         <div class="icon-text-center">

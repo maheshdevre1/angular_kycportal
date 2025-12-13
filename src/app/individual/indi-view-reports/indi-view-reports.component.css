@@ -268,7 +268,90 @@
   border: 1px solid #f7f9fc !important; 
 }
 
-.custom-search-input{
-  padding-left: 5px;
+
+.custom-search-input {
+  width: 180px;       
+  height: 36px;       
+  padding: 10px 15px; 
+  font-size: 16px;    
+  border-radius: 8px;
+}
+
+/* fullscreen overlay that sits above everything */
+/* .spinner-overlay {
+  position: fixed;
+  inset: 0;             
+  background: rgba(255,255,255,0.6);
+  z-index: 1050;        
+  pointer-events: auto; 
+} */
+
+/* optional: dim page content while loading */
+/* .page-content.dimmed {
+  pointer-events: none;
+  opacity: 0.6;
+  filter: blur(0.15px);
+} */
+
+/* Fullscreen overlay */
+.custom-loader-overlay {
+  position: fixed;
+  inset: 0; /* top:0, right:0, bottom:0, left:0 */
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* The rotating fade loader */
+.custom-spinner {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  position: relative;
+}
+
+.custom-spinner::before,
+.custom-spinner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.custom-spinner::before {
+  border: 6px solid #ccc;
+  border-top-color: #555;
+  animation: spinner-rotate 1.2s infinite linear;
+}
+
+.custom-spinner::after {
+  border: 6px solid transparent;
+  border-top-color: #000;
+  animation: spinner-fade 1.2s infinite ease-in-out;
+}
+
+/* Rotation animation */
+@keyframes spinner-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fade-in-out effect */
+@keyframes spinner-fade {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 1; }
+}
+
+/* Loading text */
+.loading-text {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #555;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
