@@ -35,6 +35,13 @@ export class LoginComponent {
   ) { }
 
 
+   ngOnInit(): void {
+    localStorage.clear();
+  }
+
+
+
+
   //login for generate token
   clickOnLogin() {
    // debugger

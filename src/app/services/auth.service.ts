@@ -11,6 +11,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('authToken'); // or sessionStorage
+  }
+
   //check bank code exist or not
   public bankdetails(bankCode: string): Observable<any> {
     const url = `${baseUrl}/${bankCode}`;

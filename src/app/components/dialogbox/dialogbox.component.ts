@@ -17,6 +17,12 @@ export class DialogboxComponent {
   }
 
   onLogout() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('bankCode');
+    localStorage.removeItem('bankName');
+    localStorage.removeItem('branchCode');
+    localStorage.removeItem('branches');
+    localStorage.removeItem('userRole');
     this.dialogRef.close('logout');
     this.router.navigate(['/login']);
   }

@@ -6,15 +6,19 @@ import { BatchesComponent } from './components/batches/batches.component';
 import { ExportComponent } from './components/export/export.component';
 import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-view-reports.component';
 import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.component';
+import { authGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, data: { hideNavbar: true, hideSidebar: true,hideFooter:true}  },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'batches', component: BatchesComponent },
-  { path: 'export', component: ExportComponent },
-  {path : 'indi_view_report', component: IndiViewReportsComponent},
-  {path : 'indi_lapsed', component: IndiLapsedComponent}
+  { path: 'dashboard', canActivate: [authGuard], component: DashboardComponent},
+  { path: 'batches', canActivate: [authGuard], component: BatchesComponent },
+  { path: 'export', canActivate: [authGuard], component: ExportComponent},
+  {path : 'indi_view_report', canActivate: [authGuard], component: IndiViewReportsComponent},
+  {path : 'indi_lapsed', canActivate: [authGuard], component: IndiLapsedComponent},
+  
+  
 ];
 
 @NgModule({
