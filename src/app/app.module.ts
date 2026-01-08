@@ -40,6 +40,12 @@ import {MatSelectModule} from '@angular/material/select';
 import { ExportComponent } from './components/export/export.component';
 import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-view-reports.component';
 import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.component';
+import { IndiPendingRecordsComponent } from './individual/indi-pending-records/indi-pending-records.component';
+
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+
 
 
 
@@ -57,7 +63,8 @@ import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.compon
     BatchesComponent,
     ExportComponent,
     IndiViewReportsComponent,
-    IndiLapsedComponent
+    IndiLapsedComponent,
+    IndiPendingRecordsComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +94,9 @@ import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.compon
     MatSortModule,
     MatPaginatorModule,
     CommonModule,
-    MatSelectModule
+    MatSelectModule,
+   
+    NgbDatepickerModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

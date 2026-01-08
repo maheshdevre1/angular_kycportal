@@ -7,6 +7,7 @@ import { ExportComponent } from './components/export/export.component';
 import { IndiViewReportsComponent } from './individual/indi-view-reports/indi-view-reports.component';
 import { IndiLapsedComponent } from './individual/indi-lapsed/indi-lapsed.component';
 import { authGuard } from './services/auth.guard';
+import { IndiPendingRecordsComponent } from './individual/indi-pending-records/indi-pending-records.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'export', canActivate: [authGuard], component: ExportComponent},
   {path : 'indi_view_report', canActivate: [authGuard], component: IndiViewReportsComponent},
   {path : 'indi_lapsed', canActivate: [authGuard], component: IndiLapsedComponent},
+  {path : 'indi_pending_records', canActivate: [authGuard], component: IndiPendingRecordsComponent},
+  
   
   
 ];

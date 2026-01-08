@@ -1,3 +1,5 @@
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+
 // src/app/models/auth.models.ts
 export interface LoginRequest {
   bankCode: string;
@@ -63,6 +65,18 @@ export interface ReprocessLapsedRequest {
     rowId: number;
     customerID: string;
   }[];
+}
+
+
+export interface PendingRecordRequest{
+  type: string;
+  searchId: string;
+  token: string;
+  action:string;
+  startDate:string;
+  endDate:string;
+  start: number,
+  length: number,
 }
 
 

@@ -24,7 +24,7 @@
 
     <!-- Submenu items (opened independently) -->
     <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
-      <a (click)="goTo('/individual/pending')">
+     <a role="button"   routerLink="/indi_pending_records" class="no-underline">
         <div class="icon-text-center">
           <span class="submenu-my-icon"><mat-icon>hourglass_bottom</mat-icon></span>
           <span class="submenu-my-text">Pending New Records</span>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="submenu-item" *ngIf="submenuOpen" [attr.aria-hidden]="!submenuOpen">
-      <a (click)="goTo('/individual/approval')">
+       <a role="button"   routerLink="/pending_approval" class="no-underline">
         <div class="icon-text-center">
           <span class="submenu-my-icon"><mat-icon>pending_actions</mat-icon></span>
           <span class="submenu-my-text">Pending Approval Records</span>
